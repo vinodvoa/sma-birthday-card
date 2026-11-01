@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Happy Birthday from SMA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #f6f1e7; --ink: #0f4a4f; --gold: #b8860b; --muted: #5b5b5b; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #10272a; --ink: #f3e3a6; --gold: #e0b94a; --muted: #c9d3d3; }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; background: var(--bg); color: var(--ink);
+    font-family: "Lora", Georgia, serif; display: flex; justify-content: center;
+    padding: 28px 16px;
+  }
+  main { width: 100%; max-width: 760px; text-align: center; }
+  .greeting { font-family: "Great Vibes", cursive; font-size: clamp(2.2rem, 8vw, 3.8rem); line-height: 1.15; margin: 8px 0 4px; }
+  .name { color: var(--gold); display: block; overflow-wrap: anywhere; }
+  .sub { color: var(--muted); margin: 0 0 22px; font-size: 1.02rem; }
+  .card { width: 100%; height: auto; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,.28); display: block; }
+  footer { margin-top: 22px; color: var(--muted); font-size: .95rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1 class="greeting">Happy Birthday<span class="name" id="name"></span></h1>
+  <p class="sub">Wishing you good health, happiness and joy.</p>
+  <img class="card" id="card" alt="Birthday card from the Singapore Malayalee Association">
+  <footer>With warm wishes from everyone at the Singapore Malayalee Association</footer>
+</main>
+<script>
+  // ?name=Constance&card=a   (card: a, b, c or d; random if missing/invalid)
+  const params = new URLSearchParams(location.search);
+  const name = (params.get("name") || "").trim().slice(0, 40);
+  const nameEl = document.getElementById("name");
+  nameEl.textContent = name ? name + "!" : "!";
+  if (!name) nameEl.style.display = "inline";
+  const cards = ["a", "b", "c", "d"];
+  let card = (params.get("card") || "").toLowerCase();
+  if (!cards.includes(card)) card = cards[Math.floor(Math.random() * cards.length)];
+  document.getElementById("card").src = "cards/card_" + card + ".jpg";
+  if (name) document.title = "Happy Birthday, " + name + "!";
+</script>
+</body>
+</html>
